@@ -1,4 +1,6 @@
-const { calcGameScore, calculate: calculatePart1 } = require('./part-1')
+const { calcGameScore } = require('./calc-game-score')
+const { calculate: calculatePart1 } = require('./part-1')
+const { calculate: calculatePart2 } = require('./part-2')
 const { GameChoice } = require('./types')
 
 describe('calcGameScore', function () {
@@ -34,5 +36,11 @@ describe('calcGameScore', function () {
 describe('calculatePart1', function () {
     it('should work with test input', function () {
         expect(calculatePart1('day-2/test-input')).toBe(15)
+    })
+})
+
+describe('calculatePart2', function () {
+    it('should work with test input', function () {
+        expect(calculatePart2('day-2/test-input')).toBe(12)
     })
 })

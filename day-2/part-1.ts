@@ -1,47 +1,25 @@
 import fs from 'fs'
-import {
-    Game,
-    GameChoiceDict,
-    GameScoreDict,
-    RawChoice,
-    RawGame,
-} from './types'
+import { calcGameScore } from './calc-game-score'
+import { Game, GameChoiceDict1, RawChoice1, RawGame1 } from './types'
 
 function readInput(filename: string): Game[] {
     const fileContents = fs.readFileSync(filename, 'utf-8')
     const formattedInput: Game[] = []
 
-    const lines = fileContents.split(/\n/) as RawGame[]
+    const lines = fileContents.split(/\n/) as RawGame1[]
 
     lines.forEach(gameString => {
         // const [opponentChoice, , playerChoice] = gameString
-        const opponentChoice = gameString[0] as RawChoice
-        const playerChoice = gameString[2] as RawChoice
+        const opponentChoice = gameString[0] as RawChoice1
+        const playerChoice = gameString[2] as RawChoice1
 
         formattedInput.push([
-            GameChoiceDict[opponentChoice],
-            GameChoiceDict[playerChoice],
+            GameChoiceDict1[opponentChoice],
+            GameChoiceDict1[playerChoice],
         ])
     })
 
     return formattedInput
-}
-
-export function calcGameScore(game: Game): number {
-    const opponentChoice = game[0]
-    const playerChoice = game[1]
-
-    const difference = playerChoice - opponentChoice
-
-    if (difference === 0) {
-        return playerChoice + GameScoreDict.DRAW
-    }
-
-    if (difference === 1 || difference === -2) {
-        return playerChoice + GameScoreDict.WIN
-    }
-
-    return playerChoice
 }
 
 export function calculate(filename: string) {
